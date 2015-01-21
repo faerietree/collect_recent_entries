@@ -7,11 +7,10 @@ CREATE TABLE tx_collectrecententries_domain_model_recententrycollection (
 	uid INT(11) UNSIGNED DEFAULT '0' NOT NULL auto_increment,
 	pid INT(11) UNSIGNED DEFAULT '0',
 
-	title VARCHAR(255) DEFAULT 'Collection', # to show in the backend or frontend
-	entry_count_max TINYINT(4) DEFAULT '1', # 1 for the most recent entry only, -1 for all entries, no longer most recent
-	# TODO Store a count of these?
-	types_to_collect BLOB, # TODO Get rid of this. There must be better foreign table handling in Flow + Typo3 somehow.
-	pages_to_collect_from BLOB, # TODO Get rid of this. There must be better foreign table handling in Flow + Typo3 somehow.
+	title VARCHAR(255) DEFAULT 'Collection', 
+	entry_count_max TINYINT(4) DEFAULT '1',
+	types_to_collect BLOB,
+	pages_to_collect_from BLOB,
 
 	creation_time INT(11) DEFAULT '0',
 	author_id INT(11) DEFAULT '0',
@@ -33,7 +32,7 @@ CREATE TABLE tx_collectrecententries_domain_model_recententrycollection (
 	l10n_diffsource MEDIUMTEXT,
 
 	order_by VARCHAR(55),
-	order_descending ENUM('0', '1') DEFAULT '0',
+	order_descending TINYINT(1) DEFAULT 0,
 
 	deleted TINYINT(4) DEFAULT '0',
 	hidden TINYINT(4) DEFAULT '0',
@@ -52,15 +51,16 @@ CREATE TABLE tx_collectrecententries_domain_model_recententrycollection (
 #     max count (e.g. 2 to only collect the 2 most recent entries of that matches the required type and pages.).
 #     pages (e.g. [pid1, pid2, pidX]) .
 #
+#PRIMARY KEY(collection_id, type), -- because type is never changing. If anything then it is removed and a new type database record is inserted.
 CREATE TABLE tx_collectrecententries_domain_model_typetocollect (
 
 	uid INT(11) UNSIGNED DEFAULT '0' NOT NULL auto_increment,
 	pid INT(11) UNSIGNED DEFAULT '0',
 
 	collection_id INT(11) NOT NULL,
-	type VARCHAR(11) NOT NULL, -- e.g. IMAGE, TEXT, ..
+	type VARCHAR(11) NOT NULL,
 
-	PRIMARY KEY(uid), #collection_id, type), -- because type is never changing. If anything then it is removed and a new type database record is inserted.
+	PRIMARY KEY(uid), 
 	KEY parent (collection_id),
 );
 
@@ -72,7 +72,7 @@ CREATE TABLE tx_collectrecententries_domain_model_pagetocollectfrom (
 	collection_id INT(11) NOT NULL,
 	page_id VARCHAR(11) NOT NULL,
 
-	PRIMARY KEY(uid),#collection_id, page_id),
+	PRIMARY KEY(uid),
 	KEY parent (collection_id)
 );
 
