@@ -1,0 +1,23 @@
+# (TODO Move more stylesheets from setup.txt to here?)
+plugin.tx_collect_recent_entries {
+	style {
+		main = EXT:collect_recent_entries/Resources/Public/Stylesheets/style.css
+	}
+	persistence {
+		# cat=plugin.tx_collect_recent_entries//a; type=string; label=Default storage PID
+		pidStorage = 
+	}
+        settings {
+                langFile = typo3conf/ext/collect_recent_entries/Resources/Private/Language/locallang.xml
+                
+		# cat=plugin.tx_collect_recent_entries//a; type=string; label=PID of the Edit Plugin
+		pidEdit = 
+
+                # cat=plugin.tx_multiblog//a; type=string; label=Url to the single view of the collection
+                linkSingleView = 
+
+                # cat=plugin.tx_collect_recent_entries//a; type=string; label=Sitename
+                sitename = 
+
+	}
+}
