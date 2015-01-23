@@ -25,13 +25,13 @@ $extKey = 'Dragontale.' . $_EXTKEY;
 		array (    // An array holding the controller-action-combinations that are accessible.
 			// The first controller and its first action will be the default.
 			'RecentEntryCollection' => 'index, create, show, delete, deleteAll',
-			'TypesToCollect' => 'index, create, delete, deleteAll',
-			'PagesToCollectFrom' => 'index, create, delete, deleteAll',
+			'TypeToCollect' => 'index, create, delete, deleteAll',
+			'PageToCollectFrom' => 'index, create, delete, deleteAll',
 		),
 		array(    // An array of non-cachable controller-action-combinations (they must already be enabled)
 			'RecentEntryCollection' => 'create, delete, deleteAll',
-			'TypesToCollect' => 'create, delete, deleteAll',
-			'PagesToCollectFrom' => 'create, delete, deleteAll',
+			'TypeToCollect' => 'create, delete, deleteAll',
+			'PageToCollectFrom' => 'create, delete, deleteAll',
 		)
 	);
 //}

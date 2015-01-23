@@ -34,8 +34,8 @@ CREATE TABLE tx_collectrecententries_domain_model_recententrycollection (
 	order_by VARCHAR(55),
 	order_descending TINYINT(1) DEFAULT 0,
 
-	deleted TINYINT(4) DEFAULT '0',
-	hidden TINYINT(4) DEFAULT '0',
+	deleted TINYINT(4) DEFAULT 0,
+	hidden TINYINT(4) DEFAULT 0,
 
 	PRIMARY KEY(uid),
 	KEY parent (pid)

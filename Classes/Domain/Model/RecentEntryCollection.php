@@ -10,11 +10,13 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 	protected $title = "";
 
 	/**
-	 @var array of string
+	 @var array of string (types directly)
+	 @var array of int (typetocollect uid)
 	 */
 	protected $typesToCollect = array(); // ["image", "text", ..]
 	/**
-	 @var array of int
+	 @var array of int (pages' uid directly)
+	 @var array of int (pagetocollectfrom uid)
 	 */
 	protected $pagesToCollectFrom = array(); // [0, 1, ...] pid integer 
 

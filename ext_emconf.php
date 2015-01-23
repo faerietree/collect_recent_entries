@@ -4,7 +4,7 @@
  * Extension Manager/Repository configuration.
  * Note: Manual changes may get lost after automatic regeneration.
  ***************************************************************/
-
+$extKey = 'Dragontale.' . $_EXTKEY; # <-- leads to blank page.
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'Collect Recent Entries',
 	'description' => 'Collects and shows the most x most recent content elements of all or selected pages and content types.',

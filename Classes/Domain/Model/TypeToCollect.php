@@ -5,7 +5,14 @@ class TypeToCollect extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 //class Tx_CollectRecentEntries_Domain_Model_TypeToCollect extends Tx_Extbase_DomainObject_AbstractEntity {
 
 	/**
-	 * @var choice of the enum typo3 content types
+         * Owning recent entry collection.
+	 * @var int
+	 */
+	public $collection_id;
+
+	/**
+	 * Choice of a type from the enum typo3 content types.
+	 * @var string
 	 */
 	public $type;
 
