@@ -3,7 +3,7 @@
 	<meta type="array">
 		<type>CSH</type>
 		<description>Language labels for the blog_example context sensitive help (CSH)</description>
-		<csh_table>_MOD_txblogexampleM1</csh_table>
+		<csh_table>_MOD_txcollectrecententriesM1</csh_table>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
