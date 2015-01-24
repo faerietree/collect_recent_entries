@@ -16,10 +16,39 @@ class TypeToCollect extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public $type;
 
-	public function __construct()
+
+	// ========================================================//
+	// METHODS 
+	// ========================================================//
+	public function __construct($collection_id, $type)
 	{
+		$this->setCollectionId($collection_id);
+		$this->setType($type);
 	}
+
+
+	public function setCollectionId($collection_id)
+	{
+		$this->collection_id = (int)$collection_id;
+	}
+
+	public function getCollectionId()
+	{
+		return $this->collection_id;
+	}
+
+
+	public function setType($type)
+	{
+		$this->type = (string)$type;
+	}
+
+	public function getType()
+	{
+		return $this->type;
+	}
+
+
 
 };
 ?>
-

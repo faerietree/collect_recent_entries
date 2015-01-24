@@ -16,10 +16,40 @@ class PageToCollectFrom extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public $page_id;
 
-	public function __construct()
+
+	// ========================================================//
+	// METHODS 
+	// ========================================================//
+	public function __construct($collection_id, $page_id)
 	{
+		$this->setCollectionId($collection_id);
+		$this->setPageId($page_id);
 	}
+
+
+	public function setCollectionId($collection_id)
+	{
+		$this->collection_id = (int)$collection_id;
+	}
+
+	public function getCollectionId()
+	{
+		return $this->collection_id;
+	}
+
+
+	public function setPageId($page_id)
+	{
+		#$this->title = (string)$page_id;
+		$this->page_id = (int)$page_id;
+	}
+
+	public function getPageId()
+	{
+		return $this->page_id;
+	}
+
+
 
 };
 ?>
-

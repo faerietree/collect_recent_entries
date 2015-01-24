@@ -70,89 +70,88 @@ class RecentEntryCollectionController extends \TYPO3\CMS\Extbase\Mvc\Controller\
 	/**
 	 * Displays a (backend!) form for creating a new collection.
 	 *
-	 * @param Tx_BlogExample_Domain_Model_Blog $newBlog A fresh blog object taken as a basis for the rendering
+	 * @param \Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection A fresh object.
 	 * @return void
-	 * @dontvalidate $newBlog
+	 * @dontvalidate $recentEntryCollection
 	 */
-	public function newAction(Tx_BlogExample_Domain_Model_Blog $newBlog = NULL) {
-		$this->view->assign('newBlog', $newBlog);
-		$this->view->assign('administrators', $this->administratorRepository->findAll());
+	public function newAction(\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection = NULL) {
+		$this->view->assign('newRecentEntryCollection', $recentEntryCollection);
 	}
 
 	/**
-	 * Creates a new blog
+	 * Creates a new recent entry collection.
 	 *
-	 * @param Tx_BlogExample_Domain_Model_Blog $newBlog A fresh Blog object which has not yet been added to the repository
+	 * @param \Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection A fresh object which has not yet been added to the repository.
 	 * @return void
 	 */
-	public function createAction(Tx_BlogExample_Domain_Model_Blog $newBlog) {
+	public function createAction(\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection = NULL) {
 		// TODO access protection
-		$this->blogRepository->add($newBlog);
+		$this->recentEntryCollectionRepository->add($recentEntryCollection);
 		$this->addFlashMessage('created');
 		$this->redirect('index');
 	}
 
 	/**
-	 * Displays a form for editing an existing blog
+	 * Displays a form for editing an existing recent entry collection.
 	 *
-	 * @param Tx_BlogExample_Domain_Model_Blog $blog The blog to be edited. This might also be a clone of the original blog already containing modifications if the edit form has been submitted, contained errors and therefore ended up in this action again.
+	 * @param Tx_BlogExample_Domain_Model_Blog $recentEntryCollection The object to be edited. This might also be a clone of the original object already containing modifications if the edit form has been submitted, contained errors and therefore ended up in this action again.
 	 * @return void
-	 * @dontvalidate $blog
+	 * @dontvalidate $recentEntryCollection
 	 */
-	public function editAction(Tx_BlogExample_Domain_Model_Blog $blog) {
-		$this->view->assign('blog', $blog);
-		$this->view->assign('administrators', $this->administratorRepository->findAll());
+	public function editAction(\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection = NULL) {
+		$this->view->assign('recentEntryCollection', $recentEntryCollection);
 	}
 
 	/**
-	 * Updates an existing blog
+	 * Updates an existing object.
 	 *
-	 * @param Tx_BlogExample_Domain_Model_Blog $blog A not yet persisted clone of the original blog containing the modifications
+	 * @param \Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection A not yet persisted clone of the original object containing the modifications.
 	 * @return void
 	 */
-	public function updateAction(Tx_BlogExample_Domain_Model_Blog $blog) {
+	public function updateAction(\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection = NULL) {
 		// TODO access protection
-		$this->blogRepository->update($blog);
+		$this->recentEntryCollectionRepository->update($recentEntryCollection);
 		$this->addFlashMessage('updated');
 		$this->redirect('index');
 	}
 
 	/**
-	 * Deletes an existing blog
+	 * Deletes an existing object.
 	 *
-	 * @param Tx_BlogExample_Domain_Model_Blog $blog The blog to delete
+	 * @param \Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection A persisted object to be deleted.
 	 * @return void
 	 */
-	public function deleteAction(Tx_BlogExample_Domain_Model_Blog $blog) {
+	public function deleteAction(\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection $recentEntryCollection = NULL) {
 		// TODO access protection
-		$this->blogRepository->remove($blog);
+		$this->recentEntryCollectionRepository->remove($recentEntryCollection);
 		$this->addFlashMessage('deleted', t3lib_FlashMessage::INFO);
 		$this->redirect('index');
 	}
 
 	/**
-	 * Deletes an existing blog
+	 * Deletes all persistedobjects.
 	 *
 	 * @return void
 	 */
 	public function deleteAllAction() {
 		// TODO access protection
-		$this->blogRepository->removeAll();
+		$this->recentEntryCollectionRepository->removeAll();
 		$this->redirect('index');
 	}
 
 	/**
-	 * Creates a several new blogs
+	 * Creates several new objects.
 	 *
 	 * @return void
 	 */
 	public function populateAction() {
+		$to_add_count = 5;
 		// TODO access protection
-		$numberOfExistingBlogs = $this->blogRepository->countAll();
-		$blogFactory = $this->objectManager->get('Tx_BlogExample_Domain_Service_BlogFactory');
-		for ($blogNumber = $numberOfExistingBlogs + 1; $blogNumber < ($numberOfExistingBlogs + 5); $blogNumber++) {
-			$blog = $blogFactory->createBlog($blogNumber);
-			$this->blogRepository->add($blog);
+		$objects_count = $this->recentEntryCollectionRepository->countAll();
+		$factory = $this->objectManager->get('\Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollectionFactory');
+		for ($object_index = $objects_count + 1; $object_index < ($objects_count + $to_add_count); $object_index++) {
+			$recentEntryCollection = $factory->create($object_index);
+			$this->recentEntryCollectionRepository->add($recentEntryCollection);
 		}
 		$this->addFlashMessage('populated');
 		$this->redirect('index');

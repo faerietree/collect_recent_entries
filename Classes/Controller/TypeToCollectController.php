@@ -54,14 +54,14 @@ class PageToCollectFromController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	// METHODS
 	//========================================================//
 
-	function indexAction() {
-		$this->listAction();
+	function indexAction($recentEntryCollection = NULL) {
+		$this->listAction($recentEntryCollection = NULL);
 	}
 
-	public function listAction() {
+	public function listAction($recentEntryCollection = NULL) {
 
 		//$repository = t3lib_div::makeInstance("Tx_CollectRecentEntries_Domain_Repository_TypeToCollectRepository");
-		$repository = $this->typeToCollectFromRepository; 
+		$repository = $this->pageToCollectFromRepository; 
 		$all = $repository->findAll();
 		// TODO Filter here for only those that belong to the loaded recent entry collection? (though get parameter won't work because there may be more collections on one side.) Anyway, the criteria types to collect are not really meant for the front end. Thus are not needed in the view currently.
 		$this->view->assign("types_to_collect", $all);

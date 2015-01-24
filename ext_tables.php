@@ -119,7 +119,7 @@ if (TYPO3_MODE === 'BE')	{
 /*
  Add labels for context sensitive help (CSH).
  */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('_MOD_web_CollectRecentEntriesTxCollectRecentEntriesModule1', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_csh.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('_MOD_web_CollectRecentEntriesModule1', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_csh.xml');
 
 
 /*

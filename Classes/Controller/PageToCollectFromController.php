@@ -54,11 +54,11 @@ class PageToCollectFromController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	// METHODS
 	//========================================================//
 
-	function indexAction() {
-		$this->listAction();
+	function indexAction($recentEntryCollection = NULL) {
+		$this->listAction($recentEntryCollection = NULL);
 	}
 
-	public function listAction() {
+	public function listAction($recentEntryCollection = NULL) {
 
 		//$repository = t3lib_div::makeInstance("Tx_CollectRecentEntries_Domain_Repository_TypeToCollectRepository");
 		$repository = $this->pageToCollectFromRepository; 
