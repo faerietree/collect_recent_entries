@@ -7,13 +7,19 @@
 </f:section>
 
 <f:section name="content">
-	<h2>Edit recent entry collection "{recentEntryCollection.title}"</h2>
-	<p class="bodytext">Edit the information below:</p>
+	<f:link.action action="index" class="textIcon cancel" title="{f:translate(key: 'cancel')}"><f:translate key="cancel">[cancel]</f:translate></f:link.action>
+	<h1><f:translate key="recentEntryCollection.editHeader" arguments="{0: recentEntryCollection.title}">[edit]</f:translate></h1>
+	<!--<h2>Edit recent entry collection "{recentEntryCollection.title}"</h2>-->
+	<!--<p class="bodytext">Edit the information below:</p>-->
+	<p class="bodytext"><f:translate key="recentEntryCollection.editIntroduction">[edit]</f:translate></p>
 	<f:render partial="FormErrors" arguments="{for: 'recentEntryCollection'}" />
+	<!--
 	<f:form method="post" action="update" name="recentEntryCollection" object="{recentEntryCollection}">
 		<label for="title">Title</label><br />
 		<f:form.textbox property="title" /><br />
 		<label for="entry_count_max">Maximum entry count</label><br />
 		<f:form.textbox property="entry_count_max"/><br />
 	</f:form>
+	-->
+	<f:render partial="RecentEntryCollectionForm" arguments="{object: recentEntryCollection, objectName: 'recentEntryCollection', action: 'update'}" />
 </f:section>

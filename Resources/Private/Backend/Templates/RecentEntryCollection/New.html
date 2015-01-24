@@ -3,11 +3,16 @@
 <f:section name="iconButtons">
 	<f:be.buttons.icon uri="{f:uri.action(action:'index')}" icon="closedok" title="Cancel" />
 	<f:be.buttons.icon uri="javascript: document.recentEntryCollection.submit();" icon="saveandclosedok" title="Save" />
+	<!-- TODO This is for the frontend if the need arises later: <f:link.action action="index" class="textIcon cancel" title="{f:translate(key: 'cancel')}"><f:translate key="cancel">[cancel]</f:translate></f:link.action>
+	-->
 </f:section>
 
 <f:section name="content">
-	<h2>Create a new recent entry collection:</h2>
+	<h1><f:translate key="recentEntryCollection.create">[create]</f:translate></h1>
+	<p><f:translate key="recentEntryCollection.createIntroduction">[create recent entry collection]</f:translate></p>
+	<!--<h2>Create a new recent entry collection:</h2>
 	<p class="bodytext">Please enter information below. If empty then defaults prevail.</p>
+	-->
 	<f:render partial="FormErrors" arguments="{for: 'recentEntryCollection'}" />
 	<f:form method="post" controller="RecentEntryCollection" action="create" name="recentEntryCollection" object="{recentEntryCollection}">
 		<label for="title">Title</label><br />
@@ -16,4 +21,7 @@
 		<label for="entry_count_max">Max entry count</label><br />
 		<f:form.textbox property="entry_count_max" /><br />
 	</f:form>
+	<!-- TODO Figure if this works in Frontend only:
+	<f:render partial="RecentEntryCollectionForm" arguments="{object: recentEntryCollection, objectName: 'recentEntryCollection', action: 'create'}" />
+	-->
 </f:section>

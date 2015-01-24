@@ -5,13 +5,17 @@
 </f:section>
 
 <f:section name="content">
+	<h1><f:translate key="recentEntryCollection.header">[header]</f:translate></h1>
+	<p><f:translate key="recentEntryCollection.introduction">[introduction]</f:translate></p>
 	<f:if condition="{recentEntryCollections}">
 		<f:then>
-			<p class="bodytext">Recent entry collections:</p>
+			<h2><f:translate key="recentEntryCollection.list" arguments="{recentEntryCollections_count: '{recentEntryCollections -> f:count()}'}">[list of recent entry collections]</f:translate>:</h2>			<!--<p class="bodytext">Recent entry collections:</p>-->
 			<ul>
 				<f:for each="{recentEntryCollections}" as="recentEntryCollection">
 					<li>
-						<h3>{recentEntryCollection.title} (#types: <f:count subject="{recentEntryCollection.typeToCollect}" />, #pages: <f:count subject="{recentEntryCollection.pagesToCollectFrom}" />)</h3>
+						<h3>{recentEntryCollection.title} (#types: <f:count subject="{recentEntryCollection.typeToCollect}" />, #pages: <f:count subject="{recentEntryCollection.pagesToCollectFrom}" />)
+						</h3>
+						    <!--{recentEntryCollection.title} ({f:translate(key: 'recentEntryCollection.count', arguments: '{count:\'{recentEntryCollection.typesToCollect -> f:count()}\'}')})-->
 						<div>
 						<f:be.buttons.icon uri="{f:uri.action(action:'edit', arguments:{recentEntryCollection: recentEntryCollection})}" icon="edit2" title="Edit this recent entry collection." />
 						</div>

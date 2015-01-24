@@ -1,8 +1,0 @@
-<f:layout name="Default" />
-
-<f:section name="content">
-	<f:link.action action="index" class="textIcon cancel" title="{f:translate(key: 'cancel')}"><f:translate key="cancel">[cancel]</f:translate></f:link.action>
-	<h1><f:translate key="recentEntryCollection.editHeader" arguments="{0: recentEntryCollection.title}">[edit]</f:translate></h1>
-	<p><f:translate key="recentEntryCollection.editIntroduction">[edit]</f:translate></p>
-	<f:render partial="RecentEntryCollectionForm" arguments="{object: recentEntryCollection, objectName: 'recentEntryCollection', action: 'update'}" />
-</f:section>

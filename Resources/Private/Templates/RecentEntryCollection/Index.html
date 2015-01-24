@@ -1,26 +1,40 @@
+{namespace dragon=Dragontale\CollectRecentEntries\ViewHelpers}
 <f:layout name="Default" />
 
 <f:section name="content">
-	<h1><f:translate key="recentEntryCollection.header">[header]</f:translate></h1>
-	<p><f:translate key="recentEntryCollection.introduction">[introduction]</f:translate></p>
 	<f:if condition="{recentEntryCollections}">
 		<f:then>
-			<h2><f:translate key="recentEntryCollection.list" arguments="{recentEntryCollections_count: '{recentEntryCollections -> f:count()}'}">[list of recent entry collections]</f:translate>:</h2>
-			<f:widget.paginate objects="{recent entry collections}" as="paginated" configuration="{itemsPerPage: 3}">
+			<f:widget.paginate objects="{recentEntryCollections}" as="paginated" configuration="{itemsPerPage: 3}">
                         <!-- TODO Depends on CSS, e.g. small dimension screens, ... => Use CSS only! Stylesheets are underestimated. -->
 				<ol class="tx-collectrecententries-blog-list">
 					<f:for each="{paginated}" as="recentEntryCollection">
 						<li>
 							<h3>
-								<f:link.action action="index" controller="TypeToCollect" arguments="{recentEntryCollection : recentEntryCollection}">{recentEntryCollection.title} ({f:translate(key: 'recentEntryCollection.count', arguments: '{count:\'{recentEntryCollection.typesToCollect -> f:count()}\'}')})</f:link.action>
+								{recentEntryCollection.title}
 							</h3>
+							<f:if condition="{recentEntryCollection.content_uids}">
+								<f:then>
+									<div>reached
+									<f:for each="{recentEntryCollection.content_uids}" as="content_uid">
+										<div class="tx-collectrecententries-content-wrapper">
+										<!--
+										UID: {content_uid}
+										-->
+										<!-- {content} TODO How to trigger show action of content elements? => not possible if no model for content elements is created. Using contentObject instead. See the following view helper: -->
+										<dragon:Content uid="{content_uid}" />
+										</div>
+									</f:for>
+									</div>
+								</f:then>
+							</f:if>
+
 							<f:security.ifHasRole role="{settings.editorUsergroupUid}">
 								<div class="tx-collectrecententries-options">
-									<f:link.action action="edit" class="icon edit" arguments="{recentEntryCollection : recentEntryCollection}" title="{f:translate(key: 'recentEntryCollection.edit')}"><f:translate key="recentEntryCollection.edit" /></f:link.action>
+									<f:link.action action="edit" class="icon edit" arguments="{recentEntryCollection: recentEntryCollection}" title="{f:translate(key: 'recentEntryCollection.edit')}"><f:translate key="recentEntryCollection.edit" /></f:link.action>
 									<f:link.action action="delete" class="icon delete" arguments="{blog : blog}" title="{f:translate(key: 'recentEntryCollection.delete')}"><f:translate key="recentEntryCollection.delete" /></f:link.action>
 								</div>
 							</f:security.ifHasRole>
-							<p class="tx-collectrecententries-description"><f:format.nl2br>{recentEntryCollection.description}</f:format.nl2br></p>
+							<p class="tx-collectrecententries-description"><f:format.nl2br>{recentEntryCollection.title}</f:format.nl2br></p>
 						</li>
 					</f:for>
 				</ol>
