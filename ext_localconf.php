@@ -70,7 +70,8 @@ $extKey = 'Dragontale.' . $_EXTKEY;
 //require_once(t3lib_extMgm::extPath('div') . 'class.tx_div.php');
 //if(TYPO3_MODE == 'FE') tx_div::autoLoadAll($extKey);
 
-//$TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('multiblog').'Classes/EIDispatcher.php';
+//$TYPO3_CONF_VARS['FE']['eID_include']['ajaxDispatcher'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('collectrecententries').'Classes/EIDispatcher.php';
 
-
+# http://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/MainClasses/UsefulFunctions/Index.html
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43($_EXTKEY);
 ?>

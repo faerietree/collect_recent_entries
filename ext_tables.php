@@ -113,6 +113,7 @@ if (TYPO3_MODE === 'BE')	{
 	);
            
         require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/Select.php'); 
+        require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'Classes/ViewHelpers/ContentViewHelper.php'); 
 
 }
 
