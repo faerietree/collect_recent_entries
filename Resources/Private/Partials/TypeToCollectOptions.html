@@ -1,0 +1,7 @@
+
+	<f:security.ifHasRole role="{settings.editorUsergroupUid}">
+		<div class="tx-collectrecententries-options">
+			<f:link.action action="edit" class="icon edit" arguments="{typeToCollect: typeToCollect, recentEntryCollection: recentEntryCollection}" title="{f:translate(key: 'typeToCollect.edit')}"><f:translate key="typeToCollect.edit" /></f:link.action>
+			<f:link.action action="delete" class="icon delete" arguments="{typeToCollect: typeToCollect, recentEntryCollection: recentEntryCollection}" title="{f:translate(key: 'typeToCollect.delete')}"><f:translate key="typeToCollect.delete" /></f:link.action>
+		</div>
+	</f:security.ifHasRole>

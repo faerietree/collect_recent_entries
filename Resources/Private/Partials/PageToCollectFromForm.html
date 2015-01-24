@@ -1,0 +1,29 @@
+<f:render partial="FormErrors" />
+<f:form action="{action}" controller="PageToCollectFrom" arguments="{pageToCollectFrom: pageToCollectFrom}" objectName="{objectName}" object="{object}" method="post">
+	<dl>
+
+		<dt>
+			<label for="tx-collectrecententries-collection_id"><f:translate key="property.collection_id">[collection id]</f:translate>:</label>
+		</dt>
+		<dd>
+			<f:form.textarea property="collection_id" id="tx-collectrecententries-collection_id" rows="8" cols="46">
+				<textarea id="tx-collectrecententries-content" rows="8" cols="46" />
+			</f:form.textarea>
+		</dd>
+
+		<dt>
+			<label for="tx-collectrecententries-page_id"><f:translate key="property.page_id">[page id]</f:translate>:</label>
+		</dt>
+		<dd>
+<!--			<f:form.select property="page_id" multiple="multiple" id="tx-collectrecententries-relatedPosts" options="{pages}" optionLabelField="title"><select id="tx-collectrecententries-relatedPosts" multiple="multiple">-->
+			<f:form.select property="type" id="tx-collectrecententries-page_id" value="{pageToCollectFrom.page_id}" options="{pages}" optionLabelField="page">
+			<select id="tx-collectrecententries-page">
+				<option>-------</option>
+			</select></f:form.select>
+		</dd>
+
+		<dd>
+			<f:form.submit class="button" value="{f:translate(key: 'submit', default: '[submit]')}"><input class="button" type="submit" name="" value="Submit" /></f:form.submit>
+		</dd>
+	</dl>
+</f:form>

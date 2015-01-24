@@ -1,0 +1,19 @@
+{namespace recentEntryCollection=Tx_CollectRecentEntries_ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="iconButtons">
+	<f:be.buttons.icon uri="{f:uri.action(action:'index', arguments: {pageToCollectFrom : pageToCollectFrom, recentEntryCollection: pageToCollectFrom.recentEntryCollection})}" icon="closedok" title="Cancel" />
+	<f:be.buttons.icon uri="javascript: document.pageToCollectFrom.submit();" icon="saveandclosedok" title="Save" />
+	<f:be.buttons.icon uri="{f:uri.action(action: 'delete', arguments: {pageToCollectFrom : pageToCollectFrom, recentEntryCollection: pageToCollectFrom.recentEntryCollection})}" icon="deletedok" title="Delete" />
+</f:section>
+
+<f:section name="content">
+	<h2>Edit criterium page to collect from:</h2>
+	<f:render partial="FormErrors" arguments="{for: 'pageToCollectFrom'}" />
+	<f:form method="post" controller="PageToCollectFrom" action="update" name="pageToCollectFrom" object="{pageToCollectFrom}" arguments="{recentEntryCollection : recentEntryCollection}" >
+		<label for="collection_id">Collection ID:</label><br />
+		<f:form.textbox property="collection_id" /><br />
+		<label for="page_id">Page ID:</label><br />
+		<f:form.textbox property="page_id" /><br /><br />
+	</f:form>
+</f:section>

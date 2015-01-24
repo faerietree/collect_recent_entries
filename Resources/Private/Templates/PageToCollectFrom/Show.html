@@ -8,9 +8,9 @@
 	<f:render partial="PostMetaData" arguments="{post: post}"/>
 	<f:render partial="PostTags" arguments="{post: post}"/>
 	<f:if condition="{post.relatedPosts}">
-		<div class="tx-blogexample-related">
+		<div class="tx-collectrecententries-related">
 			<h2><f:translate key="post.related">[related posts]</f:translate>:</h2>
-			<ul class="tx-blogexample-related">
+			<ul class="tx-collectrecententries-related">
 				<f:for each="{post.relatedPosts}" as="relatedPost">
 					<li>
 						<f:link.action action="show" controller="Post" arguments="{post: relatedPost, blog: post.blog}">{relatedPost.title}</f:link.action>
@@ -20,22 +20,22 @@
 		</div>
 	</f:if>
 	<f:security.ifHasRole role="{settings.editorUsergroupUid}">
-		<div class="tx-blogexample-options">
+		<div class="tx-collectrecententries-options">
 			<f:link.action action="edit" class="icon edit" arguments="{post: post, blog: post.blog}" title="{f:translate(key: 'post.edit')}"><f:translate key="post.edit" /></f:link.action>
 			<f:link.action action="delete" class="icon delete" arguments="{post: post, blog: post.blog}" title="{f:translate(key: 'post.delete')}"><f:translate key="post.delete" /></f:link.action>
 		</div>
 	</f:security.ifHasRole>
-	<div class="tx-blogexample-comments">
+	<div class="tx-collectrecententries-comments">
 		<h2><f:translate key="post.comments">[comments]</f:translate>:</h2>
 		<f:if condition="{post.comments}">
 			<ol>
 				<f:for each="{post.comments}" as="comment">
 					<li>
-						<blog:gravatar emailAddress="{comment.email}" defaultImageUri="{f:uri.resource(path: 'Icons/default_gravatar.gif', absolute: 1)}" size="40" class="tx-blogexample-gravatar" />
-						<f:link.email email="{comment.author}">{comment.author}</f:link.email> <span class="tx-blogexample-metadata"><f:translate key="postedOn" default="[posted on]" /> {post.date -> f:format.date(format: '{f:translate(key: \'culture.date.formatLong\')}')}</span>
+						<blog:gravatar emailAddress="{comment.email}" defaultImageUri="{f:uri.resource(path: 'Icons/default_gravatar.gif', absolute: 1)}" size="40" class="tx-collectrecententries-gravatar" />
+						<f:link.email email="{comment.author}">{comment.author}</f:link.email> <span class="tx-collectrecententries-metadata"><f:translate key="postedOn" default="[posted on]" /> {post.date -> f:format.date(format: '{f:translate(key: \'culture.date.formatLong\')}')}</span>
 						<p><f:format.nl2br>{comment.content}</f:format.nl2br></p>
 						<f:security.ifHasRole role="{settings.editorUsergroupUid}">
-							<div class="tx-blogexample-options">
+							<div class="tx-collectrecententries-options">
 								<f:link.action action="delete" controller="Comment" class="icon delete" arguments="{comment: comment, post: post}" title="{f:translate(key: 'comment.delete')}"><f:translate key="comment.delete" /></f:link.action>
 							</div>
 						</f:security.ifHasRole>

@@ -1,22 +1,24 @@
 <f:layout name="Default" />
 
 <f:section name="iconButtons">
-	<f:be.buttons.icon uri="{f:uri.action(action:'index', controller:'Blog')}" icon="closedok" title="Back" />
-	<f:be.buttons.icon uri="{f:uri.action(action:'new', arguments:{blog: blog})}" icon="new_el" title="Create new Post" />
-	<f:be.buttons.icon uri="{f:uri.action(action:'edit', controller:'Blog', arguments:{blog: blog})}" icon="edit2" title="Edit this blog" />
+	<f:be.buttons.icon uri="{f:uri.action(action:'index', controller:'RecentEntryCollection')}" icon="closedok" title="Show recent entry collections" />
+	<f:be.buttons.icon uri="{f:uri.action(action:'new', controller:'TypeToCollect', arguments:{recentEntryCollection: recentEntryCollection})}" icon="new_el" title="Add new type to collect." />
+
+<!--	<f:be.buttons.icon uri="{f:uri.action(action:'show', controller:'', arguments:{recentEntryCollection: recentEntryCollection})}" icon="edit2" title="Edit owning collection (e.g. change entry count maximum limit)" /> not required as the entry count maximum is unrelated to the criteria. -->
 </f:section>
 
 <f:section name="content">
-	<h2>Posts of Blog &quot;{blog.title}&quot;</h2>
-	<p class="bodytext">{blog.description}</p>
-	<div class="tx-blogexample-list-container">
-		<f:if condition="{blog.posts}">
+	<f:condition 
+	<h2>Criteria of collection &quot;{recentEntryCollection.title}&quot;</h2>
+	<p class="bodytext">{recentEntryCollection.entry_count_max}</p>
+	<div class="tx-collectrecententries-list-container">
+		<f:if condition="{recentEntryCollection.typesToCollect}">
 			<f:then>
 				<ul>
-					<f:for each="{blog.posts}" as="post">
+					<f:for each="{recentEntryCollection.typesToCollect}" as="typeToCollect">
 						<li>
 							<h3>
-								<f:link.action action="show" controller="Post" arguments="{post: post, blog: post.blog}">
+								<f:link.action action="show" controller="TypeToCollect" arguments="{typeToCollect: typeToCollect, recentEntryRepository: typeToCollect.recentEntryCollection}">
 									{post.title}
 								</f:link.action>
 								<f:be.buttons.icon uri="{f:uri.action(action:'edit', arguments:{post: post, blog: blog})}" icon="edit2" title="Edit this Post" />

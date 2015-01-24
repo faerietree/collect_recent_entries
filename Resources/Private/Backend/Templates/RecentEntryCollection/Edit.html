@@ -2,20 +2,18 @@
 
 <f:section name="iconButtons">
 	<f:be.buttons.icon uri="{f:uri.action(action:'index')}" icon="closedok" title="Cancel" />
-	<f:be.buttons.icon uri="javascript: document.blog.submit();" icon="saveandclosedok" title="Save" />
-	<f:be.buttons.icon uri="{f:uri.action(action:'delete', arguments:{blog: blog})}" icon="deletedok" title="Delete this blog" />
+	<f:be.buttons.icon uri="javascript: document.recentEntryCollection.submit();" icon="saveandclosedok" title="Save" />
+	<f:be.buttons.icon uri="{f:uri.action(action:'delete', arguments:{recentEntryCollection: recentEntryCollection})}" icon="deletedok" title="Delete this recent entry collection." />
 </f:section>
 
 <f:section name="content">
-	<h2>Edit blog "{blog.title}"</h2>
-	<p class="bodytext">Edit the information about your blog below:</p>
-	<f:render partial="FormErrors" arguments="{for: 'blog'}" />
-	<f:form method="post" action="update" name="blog" object="{blog}">
+	<h2>Edit recent entry collection "{recentEntryCollection.title}"</h2>
+	<p class="bodytext">Edit the information below:</p>
+	<f:render partial="FormErrors" arguments="{for: 'recentEntryCollection'}" />
+	<f:form method="post" action="update" name="recentEntryCollection" object="{recentEntryCollection}">
 		<label for="title">Title</label><br />
 		<f:form.textbox property="title" /><br />
-		<label for="description">Description</label><br />
-		<f:form.textarea property="description" rows="8" cols="46" /><br />
-		<label for="administrator">Administrator</label><br />
-		<f:form.select property="administrator" value="{blog.administrator}" options="{administrators}" optionLabelField="name"><select><option>dummy</option></select></f:form.select><br />
+		<label for="entry_count_max">Maximum entry count</label><br />
+		<f:form.textbox property="entry_count_max"/><br />
 	</f:form>
 </f:section>

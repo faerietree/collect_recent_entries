@@ -13,10 +13,11 @@
 				<div class="docheader-row2-left">
 					<f:be.buttons.csh />
 					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="Overview" controller="Blog" action="index" />
-						<f:be.menus.actionMenuItem label="Create new Blog" action="new" controller="Blog" />
-						<f:if condition="{blog}">
-							<f:be.menus.actionMenuItem label="Create new Post" action="new" controller="Post" arguments="{blog: blog}" />
+						<f:be.menus.actionMenuItem label="Overview" controller="RecentEntryCollection" action="index" />
+						<f:be.menus.actionMenuItem label="Create new recent entry collection." action="new" controller="RecentEntryCollection" />
+						<f:if condition="{recentEntryCollection}">
+							<f:be.menus.actionMenuItem label="Add new page to collect from." action="new" controller="PageToCollectFrom" arguments="{recentEntryCollection: recentEntryCollection}" />
+							<f:be.menus.actionMenuItem label="Add new type to collect." action="new" controller="TypeToCollect" arguments="{recentEntryCollection: recentEntryCollection}" />
 						</f:if>
 					</f:be.menus.actionMenu>
 				</div>

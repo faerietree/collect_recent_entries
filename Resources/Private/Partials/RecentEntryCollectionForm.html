@@ -1,0 +1,22 @@
+<f:render partial="FormErrors" />
+<f:form action="{action}" controller="RecentEntryCollection" objectName="{objectName}" object="{object}" method="post">
+	<dl>
+		<dt>
+			<label for="tx-collectrecententries-title"><f:translate key="property.title">[title]</f:translate>:</label>
+		</dt>
+		<dd>
+			<f:form.textfield property="title" id="tx-collectrecententries-title"><input type="text" id="tx-collectrecententries-title" /></f:form.textfield>
+		</dd>
+
+		<dt>
+			<label for="tx-collectrecententries-max_entry_count"><f:translate key="property.max_entry_count">[max entry count]</f:translate>:</label>
+		</dt>
+		<dd>
+			<f:form.textfield property="max_entry_count" id="tx-collectrecententries-max_entry_count"><input type="text" id="tx-collectrecententries-max_entry_count" /></f:form.textfield>
+		</dd>
+
+		<dd>
+			<f:form.submit class="button" value="{f:translate(key: 'submit', default: '[submit]')}"><input class="button" type="submit" name="" value="Submit" /></f:form.submit>
+		</dd>
+	</dl>
+</f:form>

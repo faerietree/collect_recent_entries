@@ -1,30 +1,39 @@
 <f:layout name="Default" />
 
 <f:section name="iconButtons">
-	<f:be.buttons.icon uri="{f:uri.action(action:'new')}" icon="new_el" title="Create new Blog" />
+	<f:be.buttons.icon uri="{f:uri.action(action:'new')}" icon="new_el" title="Create new." />
 </f:section>
 
 <f:section name="content">
-	<f:if condition="{blogs}">
+	<f:if condition="{recentEntryCollections}">
 		<f:then>
-			<p class="bodytext">Here is a list of blogs:</p>
+			<p class="bodytext">Recent entry collections:</p>
 			<ul>
-				<f:for each="{blogs}" as="blog">
+				<f:for each="{recentEntryCollections}" as="recentEntryCollection">
 					<li>
-						<h3>
-							<f:link.action action="index" controller="Post" arguments="{blog: blog}" title="Edit this Blog">
-								{blog.title} (<f:count subject="{blog.posts}" />)
-							</f:link.action>
-							<f:be.buttons.icon uri="{f:uri.action(action:'edit', arguments:{blog: blog})}" icon="edit2" title="Edit this blog" />
-						</h3>
-						<p><f:format.nl2br>{blog.description}</f:format.nl2br></p>
+						<h3>{recentEntryCollection.title} (#types: <f:count subject="{recentEntryCollection.typeToCollect}" />, #pages: <f:count subject="{recentEntryCollection.pagesToCollectFrom}" />)</h3>
+						<div>
+						<f:be.buttons.icon uri="{f:uri.action(action:'edit', arguments:{recentEntryCollection: recentEntryCollection})}" icon="edit2" title="Edit this recent entry collection." />
+						</div>
+						<div>Max items to show: <span><f:format.nl2br>{recentEntryCollection.entry_count_max}</f:format.nl2br></span>
+						</div>
+						<div>
+						<f:link.action action="index" controller="TypeToCollect" arguments="{recentEntryCollection: recentEntryCollection}" title="List page to collect from criteria of this recent entry collection.">
+								
+						</f:link.action>
+						</div>
+						<div>
+						<f:link.action action="index" controller="PageToCollectFrom" arguments="{recentEntryCollection: recentEntryCollection}" title="Edit type to collect criteria of this recent entry collection.">
+								
+						</f:link.action>
+						</div>
 					</li>
 				</f:for>
 			</ul>
-			<p><f:link.action action="deleteAll">Delete all Blogs [!!!]</f:link.action></p>
+			<p><f:link.action action="deleteAll">Delete all [Attention!]</f:link.action></p>
 		</f:then>
 		<f:else>
-			<p><f:link.action action="populate">Create example data</f:link.action></p>
+			<p><f:link.action action="populate">Create example data (show all recent entries of all types and from all pages)</f:link.action></p>
 		</f:else>
 	</f:if>
 </f:section>

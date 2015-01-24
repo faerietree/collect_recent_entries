@@ -1,0 +1,26 @@
+<div id="tx-collectrecententries-typetocollect-form">
+	<f:render partial="FormErrors" />
+	<f:form action="create" controller="TypeToCollect" section="tx-collectrecententries-comments-form" objectName="{objectName}" object="{object}" arguments="{recentEntryCollection: recentEntryCollection}" method="post">
+
+		<dt>
+			<label for="tx-collectrecententries-title"><f:translate key="property.collection_id">[collection id]</f:translate>:</label>
+		</dt>
+		<dd>
+			<f:form.textfield property="collection_id" id="tx-collectrecententries-collection_id">
+			<input type="text" id="tx-collectrecententries-collection_id" />
+			</f:form.textfield>
+		</dd>
+
+		<dt>
+			<label for="tx-collectrecententries-type"><f:translate key="property.type">[type]</f:translate>:</label>
+		</dt>
+		<dd>
+			<f:form.select property="type" id="tx-collectrecententries-type" value="{typeToCollect.type}" options="{types}" optionLabelField="type"><select id="tx-collectrecententries-type"><option>-------</option>
+			</select></f:form.select>
+		</dd>
+
+		<dd>
+			<f:form.submit class="button" value="{f:translate(key: 'submit', default: '[submit]')}"><input class="button" type="submit" name="" value="Submit" /></f:form.submit>
+		</dd>
+	</dl>
+</f:form>

@@ -1,6 +1,6 @@
-{blog.title}:
+{recentEntryCollection.title}:
 ===============================================================
-<f:if condition="{blog.posts}"><f:then><f:for each="{blog.posts}" as="post">
+<f:if condition="{recentEntryCollection.posts}"><f:then><f:for each="{blog.posts}" as="post">
 {post.title}
 ---------------------------------------------------------------
 <f:format.crop maxCharacters="70">{post.content}</f:format.crop>
