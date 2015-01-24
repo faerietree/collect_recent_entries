@@ -9,48 +9,55 @@
 #}
 
 
-config.tx_extbase {
-	persistence {
-		classes {
-			Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection {
-				#mapping {
-					#tableName = sys_file
-					#columns {
-					#	uid_local.mapOnPropery = file
-					#}
-				#}
-			}
-		}
-		# make sure ref_index is updated
-		#updateReferenceIndex = 1
-	}
-}
+#config.tx_extbase {
+#	persistence {
+#		classes {
+#			Dragontale\CollectRecentEntries\Domain\Model\RecentEntryCollection {
+#				#mapping {
+#					#tableName = sys_file
+#					#columns {
+#					#	uid_local.mapOnPropery = file
+#					#}
+#				#}
+#			}
+#		}
+#		# make sure ref_index is updated
+#		#updateReferenceIndex = 1
+#	}
+#}
 
-plugin.tx_collect_recent_entries {
+plugin.tx_collectrecententries {
 	view {
-		templateRootPath = EXT:collect_recent_entries/Resources/Private/Templates/
-		partialRootPath = EXT:collect_recent_entries/Resources/Private/Partials/
-		layoutRootPath = EXT:collect_recent_entries/Resources/Private/Layouts/
+		templateRootPath = {$plugin.tx_blogexample.view.templateRootPath}
+		partialRootPath = {$plugin.tx_blogexample.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_blogexample.view.layoutRootPath}
+		defaultPid = auto
 	}
 	persistence {
-		pidStorage = {$plugin.tx_collect_recent_entries.persistence.pidStorage}
+		storagePid = {$plugin.tx_collectrecententries.persistence.storagePid}
 	}
 	settings {
                 # loading from the constants.txt:
-                pidEdit = {$plugin.tx_collect_recent_entries.settings.pidEdit}
-                pidStorage = {$plugin.tx_collect_recent_entries.persistence.pidStorage}
-                langFile = {$plugin.tx_collect_recent_entries.settings.langFile}
-                linkSingleView = {$plugin.tx_collect_recent_entries.settings.linkSingleView}
-                sitename = {$plugin.tx_collect_recent_entries.settings.sitename}
+                editPid = {$plugin.tx_collectrecententries.settings.editPid}
+                storagePid = {$plugin.tx_collectrecententries.persistence.storagePid}
+                langFile = {$plugin.tx_collectrecententries.settings.langFile}
+                linkSingleView = {$plugin.tx_collectrecententries.settings.linkSingleView}
+                sitename = {$plugin.tx_collectrecententries.settings.sitename}
         }
         features {
 		skipDefaultArguments = 1
 	}
+	# This is an example how to modify the translation
+	_LOCAL_LANG {
+		default {
+			someUnusedKey = foo
+		}
+	}
 }
 
 page.includeCSS {
-        collect_recent_entries = {$plugin.tx_collect_recent_entries.style.main}
-        multiblog.media = screen
+        collect_recent_entries = {$plugin.tx_collectrecententries.style.main}
+        collect_recent_entries.media = screen
 }
 
 page.includeJSFooter {
@@ -63,4 +70,17 @@ page.includeJS {
 config.noPageTitle = 2
 
 
+
+
+ # Module configuration
+module.tx_collectrecententries {
+	settings < plugin.tx_collectrecententries.settings
+	persistence < plugin.tx_collectrecententries.persistence
+	view < plugin.tx_collectrecententries.view
+	view {
+		templateRootPath = {$module.tx_collectrecententries.view.templateRootPath}
+		partialRootPath = {$module.tx_collectrecententries.view.partialRootPath}
+		layoutRootPath = {$module.tx_collectrecententries.view.layoutRootPath}
+	}
+}
 

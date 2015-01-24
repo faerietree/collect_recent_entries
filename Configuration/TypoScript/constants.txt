@@ -1,23 +1,48 @@
 # (TODO Move more stylesheets from setup.txt to here?)
-plugin.tx_collect_recent_entries {
+plugin.tx_collectrecententries {
 	style {
 		main = EXT:collect_recent_entries/Resources/Public/Stylesheets/style.css
 	}
 	persistence {
-		# cat=plugin.tx_collect_recent_entries//a; type=string; label=Default storage PID
-		pidStorage = 
+		# cat=plugin.tx_collectrecententries//a; type=string; label=Default storage PID
+		storagePid = 
 	}
         settings {
                 langFile = typo3conf/ext/collect_recent_entries/Resources/Private/Language/locallang.xml
                 
-		# cat=plugin.tx_collect_recent_entries//a; type=string; label=PID of the Edit Plugin
-		pidEdit = 
+		# cat=plugin.tx_collectrecententries//a; type=string; label=PID of the Edit Plugin
+		editPid = 
 
-                # cat=plugin.tx_multiblog//a; type=string; label=Url to the single view of the collection
+                # cat=plugin.tx_collectrecententries//a; type=string; label=Url to the single view of the collection
                 linkSingleView = 
 
-                # cat=plugin.tx_collect_recent_entries//a; type=string; label=Sitename
+                # cat=plugin.tx_collectrecententries//a; type=string; label=Sitename
                 sitename = 
 
+
+		 # cat=plugin.tx_collectrecententries/a; type=int+; label=Editor FE Usergroup uid:Enter the uid of the FE Usergroup that should be allowed to edit Blogs and Post in the frontend
+		editorUsergroupUid = 1
+
+		 # cat=plugin.tx_collectrecententries/a; type=int+; label=Plaintext page type:If the default plaintext page typenum (778) conflicts with your setup, you can override this setting here
+		plaintextPageType = 778
+	}
+	view {
+
+		 # cat=plugin.tx_collectrecententries/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:collect_recent_entries/Resources/Private/Templates/
+		 # cat=plugin.tx_collectrecententries/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:collect_recent_entries/Resources/Private/Partials/
+		 # cat=plugin.tx_collectrecententries/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:collect_recent_entries/Resources/Private/Layouts/
+	}
+}
+module.tx_collectrecententries {
+	view {
+		 # cat=module.tx_collectrecententries/file; type=string; label=Path to template root (BE)
+		templateRootPath = EXT:collect_recent_entries/Resources/Private/Backend/Templates/
+		 # cat=plugin.tx_collectrecententries/file; type=string; label=Path to template partials (BE)
+		partialRootPath = EXT:collect_recent_entries/Resources/Private/Partials/
+		 # cat=plugin.tx_collectrecententries/file; type=string; label=Path to template layouts (BE)
+		layoutRootPath = EXT:collect_recent_entries/Resources/Private/Backend/Layouts/
 	}
 }
