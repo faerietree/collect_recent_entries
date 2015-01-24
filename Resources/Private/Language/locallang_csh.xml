@@ -2,13 +2,13 @@
 <T3locallang>
 	<meta type="array">
 		<type>CSH</type>
-		<description>Language labels for the blog_example context sensitive help (CSH)</description>
-		<csh_table>_MOD_txcollectrecententriesM1</csh_table>
+		<description>Language labels for the 'collect recent entries' extension's context sensitive help (CSH)</description>
+		<csh_table>_MOD_web_CollectRecentEntriesModule1</csh_table>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index=".alttitle">Blog Example</label>
-			<label index=".description">This is some dummy help. But it's context sensitive!</label>
+			<label index=".alttitle">Collect recent entries</label>
+			<label index=".description">Description. (context sensitive)</label>
 			<label index=".seeAlso">_MOD_web_func:tx_wizardcrpages, _MOD_web_func:tx_wizardsortpages</label>
 		</languageKey>
 	</data>

@@ -2,12 +2,12 @@
 <T3locallang>
     <meta type="array">
         <type>module</type>
-        <description>Language labels for module &quot;web_blogadmin&quot; - header, description</description>
+        <description>Language labels for module &quot;web_recententrycollectionadmin&quot; - header, description</description>
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="mlang_tabs_tab">Blogs</label>
-            <label index="mlang_labels_tabdescr">View/Modify Blogs</label>
+            <label index="mlang_tabs_tab">Recent entry collections</label>
+            <label index="mlang_labels_tabdescr">View/modify recent entry collections</label>
         </languageKey>
     </data>
 </T3locallang>
