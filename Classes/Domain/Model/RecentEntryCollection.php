@@ -10,6 +10,11 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 	protected $title = "";
 
 	/**
+	 @var int
+	 */
+	protected $entryCountMax = 1; // 1, namely the most recent entry by default. 
+
+	/**
 	 @var array of string (types directly)
 	 @var array of int (typetocollect uid)
 	 */
@@ -21,9 +26,9 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 	protected $pagesToCollectFrom = array(); // [0, 1, ...] pid integer 
 
 	/**
-	 @var int
+	 * tt_content results as results according to the criteria, i.e. pages to collect from and types to collect.
 	 */
-	protected $entryCountMax = 1; // 1, namely the most recent entry by default. 
+	public $content_uids;
 
 
 	// ========================================================//
@@ -57,6 +62,91 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 
 	}
 
+	public function setTypesToCollect($v)
+	{
+		$this->typesToCollect = $v;
+	}
+
+	public function setPagesToCollectFrom($v)
+	{
+		$this->pagesToCollectFrom = $v;
+	}
+
+	// Note: To show a different set of content or to show it per page best
+	// define another recent entry collection. Here it's all mixed together. 
+	public function fillContentUids()
+	{	
+		// flush:
+		$this->content_uids = array();
+		// refill:
+		$where_criteria = array();
+		if (!empty($this->pagesToCollectFrom))
+		{
+			$where_criterium_page = " pid IN(";
+		 	$pages_count = sizeOf($this->pagesToCollectFrom);
+			$where_criterium_page .= $this->pagesToCollectFrom[0]->page_id; // <-- To allow to add the , in the loop.
+			$pages_index = 1;
+			while (++$pages_index < $pages_count)
+			{
+				$pageToCollectFrom = $this->pagesToCollectFrom[$pages_index];
+				$where_criterium_page .= ", " . $pageToCollectFrom->page_id;
+			}
+			$where_criterium_page .= ")";
+			
+			$where_criteria[] = $where_criterium_page;
+		}
+		// else // Collect from all pages.
+
+		if (!empty($this->typesToCollect))
+		{
+			$where_criterium = " CType IN(";
+		 	$types_count = sizeOf($this->typesToCollect);
+			$where_criterium .= $this->typesToCollect[0]->type; // <-- To allow to add the , in the loop.
+			$types_index = 1;
+			while (++$types_index < $types_count)
+			{
+				$typeToCollect = $this->typesToCollect[$types_index];
+				$where_criterium .= ", " . $typeToCollect->type;
+			}
+			$where_criterium .= ")";
+			
+			$where_criteria[] = $where_criterium;
+		}
+		// else // Collect all types.
+
+		// Query for all tt_content rows that fulfill the criteria:
+		$fields = /*"SELECT ".*/" uid, pid, tstamp";#, crdate, date"
+		$from = " tt_content";
+		if (!empty($where_criteria))
+		{
+			$where = "";#" WHERE "
+			$where .= $where_criteria[0];
+			for ($i = 1; $i < sizeOf($where_criteria); ++$i)
+				$where .= " AND " . $where_criteria[$i];
+		}
+		$orderBy = " ORDER BY tstamp DESC";
+		$groupBy = " GROUP BY pid"; // such that those that belong together are rendered together. TODO Make this an option!
+		$limit = /*" LIMIT ". "0, ".*/ $this->entry_count_max/* .""*/;
+
+		$queryParts = array(
+			'SELECT' => $fields,
+			'FROM' => $from,
+			'WHERE' => $where,
+			'GROUPBY' => $GLOBALS['TYPO3_DB']->stripGroupBy($groupBy),
+			'ORDERBY' => $GLOBALS['TYPO3_DB']->stripOrderBy($orderBy),
+			'LIMIT' => $limit
+		);
+		#print_r($queryParts);
+                $res = $GLOBALS['TYPO3_DB']->exec_SELECT_queryArray($queryParts); // list($row) = SELECTgetRows
+		#$res = $GLOBALS['TYPO3_DB']->exec_query($sql);
+		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))
+		{
+			// TODO Postprocess here if need arises?
+			#echo '<br/>'.$row['uid']."\r\n";
+			$this->content_uids[] = $row['uid'];
+		}
+		
+	}
 
 
 };

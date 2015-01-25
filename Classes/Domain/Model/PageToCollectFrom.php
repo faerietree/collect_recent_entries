@@ -8,45 +8,45 @@ class PageToCollectFrom extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
          * Owning recent entry collection.
 	 * @var int
 	 */
-	public $collection_id;
+	public $collectionId;
 
 	/**
          * Choice of the page for this collection n:m pages interconnection.
 	 * @var int
 	 */
-	public $page_id;
+	public $pageId;
 
 
 	// ========================================================//
 	// METHODS 
 	// ========================================================//
-	public function __construct($collection_id, $page_id)
+	public function __construct($collectionId, $pageId)
 	{
-		$this->setCollectionId($collection_id);
-		$this->setPageId($page_id);
+		$this->setCollectionId($collectionId);
+		$this->setPageId($pageId);
 	}
 
 
-	public function setCollectionId($collection_id)
+	public function setCollectionId($collectionId)
 	{
-		$this->collection_id = (int)$collection_id;
+		$this->collectionId = (int)$collectionId;
 	}
 
 	public function getCollectionId()
 	{
-		return $this->collection_id;
+		return $this->collectionId;
 	}
 
 
-	public function setPageId($page_id)
+	public function setPageId($pageId)
 	{
 		#$this->title = (string)$page_id;
-		$this->page_id = (int)$page_id;
+		$this->pageId = (int)$pageId;
 	}
 
 	public function getPageId()
 	{
-		return $this->page_id;
+		return $this->pageId;
 	}
 
 

@@ -8,7 +8,7 @@ class TypeToCollect extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
          * Owning recent entry collection.
 	 * @var int
 	 */
-	public $collection_id;
+	public $collectionId;
 
 	/**
 	 * Choice of a type from the enum typo3 content types.
@@ -20,21 +20,22 @@ class TypeToCollect extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	// ========================================================//
 	// METHODS 
 	// ========================================================//
-	public function __construct($collection_id, $type)
+	public function __construct($collectionId, $type)
 	{
-		$this->setCollectionId($collection_id);
+		echo 'collection_id: ' . $collectionId;
+		$this->setCollectionId($collectionId);
 		$this->setType($type);
 	}
 
 
-	public function setCollectionId($collection_id)
+	public function setCollectionId($collectionId)
 	{
-		$this->collection_id = (int)$collection_id;
+		$this->collectionId = (int)$collectionId;
 	}
 
 	public function getCollectionId()
 	{
-		return $this->collection_id;
+		return $this->collectionId;
 	}
 
 

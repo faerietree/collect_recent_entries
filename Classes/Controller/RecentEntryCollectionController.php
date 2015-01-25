@@ -58,14 +58,88 @@ class RecentEntryCollectionController extends \TYPO3\CMS\Extbase\Mvc\Controller\
 		$this->listAction();
 	}
 
+	private function getEntries($recentEntryCollection) {
+		
+	}
 	public function listAction() {
 
 		//$repository = t3lib_div::makeInstance("Tx_CollectRecentEntries_Domain_Repository_RecentEntryCollectionRepository");
 		$repository = $this->recentEntryCollectionRepository;
-		$all = $repository->findAll();
-		$this->view->assign("recent_entry_collections", $all);
-		return $this->view->render(); // <-- Extbase also cares for that should it be forgotten here.
+		$recentEntryCollections = $repository->findAll();
+		$this->view->assign("recentEntryCollections", $recentEntryCollections);
+		$recentEntryCollections_index = -1;
+		$recentEntryCollections_count = sizeOf($recentEntryCollections);
+		#echo '#recentEntryCollections: ' . $recentEntryCollections_count;
+		while (++$recentEntryCollections_index < $recentEntryCollections_count)
+		{
+			#echo '<br/>'.$recentEntryCollections_index;
+			$recentEntryCollection = $recentEntryCollections[$recentEntryCollections_index];
+			$this->loadCriteria($recentEntryCollection);
+			// Figure content elements (uids) that are matched by the criteria: 
+			// (tt_)content elements' ids (uid).
+			// (Needed for rendering in the frontend.)
+			// Now moved to content view helper for easy access from within (fluid) templates.
+			$recentEntryCollection->fillContentUids();
+			#$cObject = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
+			#$contentObject = $this->configurationManager->getContentObject();
+			#$config = array(
+			#	'tables' => 'tt_content',
+			#	'source' => $uid,
+			#	'dontCheckPid' => 1
+			#);
+
+			#$res = $contentObject->RECORDS($config)->data;
+			#echo 'content object RECORDS data: ';
+			#print_r($res);
+
+		}
+
+		#return $this->view->render(); // <-- Extbase also cares for that should it be forgotten here.
 	}
+
+	/**
+	 * Load/assemble criteria of a recentEntryCollection.
+	 */
+	private function loadCriteria($recentEntryCollection)
+	{
+		// Determine types to collect:
+		$repository = $this->typeToCollectRepository;
+		$all = $repository->findAll(); // TODO filter here directly.
+		$all_index = sizeOf($all);
+		$results = array();
+		#echo 'types to collect count: ' . $all_index .'<br/>';
+		while (--$all_index > -1)
+		{
+			$typeToCollect = $all[$all_index];
+			#print_r($typeToCollect);
+			#if ($this->recentEntryCollectionRepository->findByUid($typeToCollect->collection_id) == $recentEntryCollection)
+			if ($typeToCollect->getCollectionId() == $recentEntryCollection->getUid())
+			{
+				#echo '<div style="position: absolute; top:0; left:20%;">Type to collect: ' . $typeToCollect . '</div>' . "\r\n";
+				#echo 'Type to collect: ' . $typeToCollect . "<br/>\r\n";
+				$results[] = $typeToCollect;
+			}
+		}
+		$recentEntryCollection->setTypesToCollect($results);
+
+		// Determine pages to collect from:
+		$repository = $this->pageToCollectFromRepository;
+		$all = $repository->findAll(); // TODO filter here directly.
+		$all_index = sizeOf($all);
+		$results = array();
+		while (--$all_index > -1)
+		{
+			$pageToCollectFrom = $all[$all_index];
+			#if ($this->recentEntryCollectionRepository->findByUid($typeToCollect->getCollectionId()) == $recentEntryCollection)
+			if ($pageToCollectFrom->getCollectionId() == $recentEntryCollection->getUid())
+			{
+				#echo 'Page to collect from: ' . $pageToCollectFrom . '<br/>' . "\r\n";
+				$results[] = $pageToCollectFrom;
+			}
+		}
+		$recentEntryCollection->setPagesToCollectFrom($results);
+	}
+
 
 	/**
 	 * Displays a (backend!) form for creating a new collection.
@@ -159,9 +233,3 @@ class RecentEntryCollectionController extends \TYPO3\CMS\Extbase\Mvc\Controller\
 }
 
 ?>
-
-};
-
-?>
-
-
