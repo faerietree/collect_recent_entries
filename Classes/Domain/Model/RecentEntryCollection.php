@@ -82,7 +82,7 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 		$where_criteria = array();
 		if (!empty($this->pagesToCollectFrom))
 		{
-			$where_criterium_page = " pid IN(";
+			$where_criterium_page = " tt_content.pid IN(";
 		 	$pages_count = sizeOf($this->pagesToCollectFrom);
 			$where_criterium_page .= $this->pagesToCollectFrom[0]->page_id; // <-- To allow to add the , in the loop.
 			$pages_index = 1;
@@ -99,7 +99,7 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 
 		if (!empty($this->typesToCollect))
 		{
-			$where_criterium = " CType IN(";
+			$where_criterium = " tt_content.CType IN(";
 		 	$types_count = sizeOf($this->typesToCollect);
 			$where_criterium .= $this->typesToCollect[0]->type; // <-- To allow to add the , in the loop.
 			$types_index = 1;
@@ -114,19 +114,25 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 		}
 		// else // Collect all types.
 
+		// Exclude pages/lists/plugin:
+		$where_criteria[] = " tt_content.CType <> 'list' ";
+		$where_criteria[] = " tt_content.deleted <> 1 ";
+
 		// Query for all tt_content rows that fulfill the criteria:
 		$fields = /*"SELECT ".*/" uid, pid, tstamp";#, crdate, date"
 		$from = " tt_content";
+
+		$where = '';#" WHERE ";
 		if (!empty($where_criteria))
 		{
-			$where = "";#" WHERE "
 			$where .= $where_criteria[0];
 			for ($i = 1; $i < sizeOf($where_criteria); ++$i)
-				$where .= " AND " . $where_criteria[$i];
+				$where .= "AND " . $where_criteria[$i];
 		}
-		$orderBy = " ORDER BY tstamp DESC";
+
+		$orderBy = " ORDER BY tstamp DESC"; # TODO This order doesn't work. Group by needs to come first. Check MySQL for how to order first and then group.
 		$groupBy = " GROUP BY pid"; // such that those that belong together are rendered together. TODO Make this an option!
-		$limit = /*" LIMIT ". "0, ".*/ $this->entry_count_max/* .""*/;
+		$limit = /*" LIMIT ". "0, ".*/ $this->getEntryCountMax()/* .""*/;
 
 		$queryParts = array(
 			'SELECT' => $fields,
@@ -138,13 +144,22 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 		);
 		#print_r($queryParts);
                 $res = $GLOBALS['TYPO3_DB']->exec_SELECT_queryArray($queryParts); // list($row) = SELECTgetRows
+                #$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($queryParts['SELECT'],$queryParts['FROM'],$queryParts['WHERE'],$queryParts['GROUPBY'],$queryParts['ORDERBY'],$queryParts['LIMIT']); // list($row) = SELECTgetRows
+		#echo 'Resource handle: <br />';
+		#print_r($res);
 		#$res = $GLOBALS['TYPO3_DB']->exec_query($sql);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))
+		$index = -1;
+		#echo 'index: ' . $index;
+		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))
+&& ++$index < $this->getEntryCountMax())
 		{
+			#print_r($row);
+			#echo 'index: ' . $index . ': uid: ' . $row['uid'].'<br/>'. "\r\n";
 			// TODO Postprocess here if need arises?
 			#echo '<br/>'.$row['uid']."\r\n";
-			$this->content_uids[] = $row['uid'];
+			$this->content_uids[$index] = $row['uid'];
 		}
+		print_r($this->content_uids);
 		
 	}
 

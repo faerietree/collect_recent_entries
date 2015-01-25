@@ -4,22 +4,21 @@
 <f:section name="content">
 	<f:if condition="{recentEntryCollections}">
 		<f:then>
-			<f:widget.paginate objects="{recentEntryCollections}" as="paginated" configuration="{itemsPerPage: 3}">
                         <!-- TODO Depends on CSS, e.g. small dimension screens, ... => Use CSS only! Stylesheets are underestimated. -->
-				<ol class="tx-collectrecententries-blog-list">
-					<f:for each="{paginated}" as="recentEntryCollection">
-						<li>
+				<div class="tx-collectrecententries-blog-list">
+					<f:for each="{recentEntryCollections}" as="recentEntryCollection">
+						<div>
 							<h3>
 								{recentEntryCollection.title}
 							</h3>
 							<f:if condition="{recentEntryCollection.content_uids}">
 								<f:then>
-									<div>reached
+									<div>
 									<f:for each="{recentEntryCollection.content_uids}" as="content_uid">
 										<div class="tx-collectrecententries-content-wrapper">
 										<!--
-										UID: {content_uid}
 										-->
+										UID: {content_uid}
 										<!-- {content} TODO How to trigger show action of content elements? => not possible if no model for content elements is created. Using contentObject instead. See the following view helper: -->
 										<dragon:Content uid="{content_uid}" />
 										</div>
@@ -35,10 +34,9 @@
 								</div>
 							</f:security.ifHasRole>
 							<p class="tx-collectrecententries-description"><f:format.nl2br>{recentEntryCollection.title}</f:format.nl2br></p>
-						</li>
+						</div>
 					</f:for>
-				</ol>
-			</f:widget.paginate>
+				</div>
 			<f:security.ifHasRole role="{settings.editorUsergroupUid}">
 				<ul class="tx-collectrecententries-linksection">
 					<li><f:link.action action="new" class="icon new" title="{f:translate(key: 'recentEntryCollection.createAnother')}"><f:translate key="recentEntryCollection.createAnother">[create another]</f:translate></f:link.action></li>

@@ -66,7 +66,6 @@ class RecentEntryCollectionController extends \TYPO3\CMS\Extbase\Mvc\Controller\
 		//$repository = t3lib_div::makeInstance("Tx_CollectRecentEntries_Domain_Repository_RecentEntryCollectionRepository");
 		$repository = $this->recentEntryCollectionRepository;
 		$recentEntryCollections = $repository->findAll();
-		$this->view->assign("recentEntryCollections", $recentEntryCollections);
 		$recentEntryCollections_index = -1;
 		$recentEntryCollections_count = sizeOf($recentEntryCollections);
 		#echo '#recentEntryCollections: ' . $recentEntryCollections_count;
@@ -94,6 +93,8 @@ class RecentEntryCollectionController extends \TYPO3\CMS\Extbase\Mvc\Controller\
 
 		}
 
+
+		$this->view->assign("recentEntryCollections", $recentEntryCollections);
 		#return $this->view->render(); // <-- Extbase also cares for that should it be forgotten here.
 	}
 
