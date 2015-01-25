@@ -159,7 +159,7 @@ class RecentEntryCollection extends \TYPO3\CMS\Extbase\DomainObject\AbstractEnti
 			#echo '<br/>'.$row['uid']."\r\n";
 			$this->content_uids[$index] = $row['uid'];
 		}
-		print_r($this->content_uids);
+		#print_r($this->content_uids);
 		
 	}
 
