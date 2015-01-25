@@ -1,0 +1,6 @@
+
+# In e.g. ContentObjectRencerer.php, line 7273. Though the general rule is to put it where the error occurs first.
++		if (!is_object($GLOBALS['TSFE']->sys_page)) {
++			error_log('$_GLOBALS[\'TSFE\']->sys_page is no object! I have to instance it. IN '.__FILE__.':'.__LINE__);
++			$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_pageSelect');
+
